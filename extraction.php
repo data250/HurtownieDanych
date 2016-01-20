@@ -20,7 +20,7 @@ if (!isset($_SESSION['kod'])) {
           print_r('opis:'.$tab[0]['opis'].'<br>');   
           
           
-          echo "<p><a href=\"transform.php\">Transformation</a></p>";
+          echo "<p><a href=\"transformation.php\">Transformation</a></p>";
         }
 /* 
  * To change this license header, choose License Headers in Project Properties.

@@ -71,3 +71,89 @@ function extraction($id){
         return $tab;
                
 }
+
+
+function transformation($kod, $page){
+    include_once('simple_html_dom.php'); 
+        $ceneo = 'http://www.ceneo.pl/';
+        $adres = $ceneo . $kod;
+        $html = file_get_html($adres); //tymczasowy adres
+
+            $html = file_get_html($adres . '/opinie-' . $page);
+            $nicks = $html->find('div.product-reviewer');
+            foreach ($nicks as $nick) {
+                $tab['nick'][] = $nick->innertext;
+            }
+            $scores = $html->find('span.review-score-count');
+            foreach ($scores as $score) {
+                //print_r('TEST:'.$score->innertext.':TEST');
+                $tab['score'][] = $score->innertext;
+            }
+            $pross = $html->find('span.pros-cell');
+            foreach ($pross as $pros) {
+               $tab['pros'][] = $pros->innertext;
+            }
+            $conss = $html->find('span.cons-cell');
+            foreach ($conss as $cons) {
+                $tab['cons'][] =  $cons->innertext;
+            }
+            $tresc = $html->find('p.product-review-body');
+            foreach ($tresc as $post) {
+               $tab['post'][] = $post->innertext;
+            }
+            $recommended = $html->find('div.reviewer-recommendation > div > em');
+            foreach ($recommended as $rcm) {
+               $tab['rcm'][] =  $rcm->innertext;
+            }
+            $yesv = $html->find('span.product-review-usefulness-stats');
+            foreach ($yesv as $yes) {
+               $tab['yes'][] =  $yes->children(1)->innertext;
+               $tab['all'][] =  $yes->children(2)->innertext;
+            }
+            $time = $html->find('time');
+            foreach ($time as $tm) {
+               $tab['time'][] = $tm->datetime;
+            }
+            return $tab;
+
+        }
+        
+        function transformationShow($kod, $page){
+            
+            $tab[]= transformation($kod, $page);
+           echo "<pre>";
+            //print_r($tab);
+           echo "</pre>"; 
+           for($i=0; $i<10; $i++){
+       print_r('Autor:'.$tab[0]['nick'][$i].'<br>');
+       print_r('Ocena:'.$tab[0]['score'][$i].'<br>');
+       print_r($tab[0]['pros'][$i].'<br>');
+       print_r($tab[0]['cons'][$i].'<br>');
+       print_r('Treść:'.$tab[0]['post'][$i].'<br>');
+       print_r('Rekomendacja:'.$tab[0]['rcm'][$i].'<br>');
+       if ($tab[0]['all'][$i]!=0) {
+            print_r('Użyteczność:'.$tab[0]['yes'][$i].'<br>');
+            print_r('Oceniło:'.$tab[0]['all'][$i].'<br>');
+            $procent = $tab[0]['yes'][$i]/$tab[0]['all'][$i];
+            print_r('Procentowo: '. $procent*100);
+            print_r('%<br>');
+       }
+
+       print_r('Czas dodania:'.$tab[0]['time'][$i].'<br>');
+       print_r('<hr>');       
+    }
+        }
+        
+function countReviews($kod){
+       include_once('simple_html_dom.php'); 
+    $ceneo = 'http://www.ceneo.pl/';
+        $adres = $ceneo . $kod;
+        $html = file_get_html($adres); //tymczasowy adres
+    $reviewCount = $html->find('span[itemProp=reviewCount]');
+                foreach ($reviewCount as $rv) {
+                    $reviews = $rv->innertext;
+                }
+                return $reviews;
+}
+      
+
