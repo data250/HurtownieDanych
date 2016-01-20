@@ -1,4 +1,5 @@
 <?php
+session_start(); 
  include_once('funkcje.php'); 
  if (isset($_POST["submit"])) {
 
@@ -12,38 +13,44 @@
     }elseif (!is_numeric($_POST["kod"])){
         echo "<p style=\"color:red\">Kody towarów muszą być numeryczne (0-9)!</p>";
     } else {
+        $kod = $_POST["kod"];
+          
+
+        if (!isset($_SESSION['kod'])) { 
+            $_SESSION['kod'] = $kod;     
+        } else {                          
+            //tmp        
+        }
     
       ?>
 
-      <h3>Sprawdzam bazę!</h3>
+      <h3>Sprawdzanie kodu w bazie</h3>
 
       
 
-      <li>Kod: <b><?= trim($_POST["kod"]); ?></b></li>
+      <li>Kod: <b><?= trim($kod); ?></b></li>
 
      
 
       <?php
-      if (istnieje($_POST["kod"])){
+      if (istnieje($kod)){
           echo "Produkt istnieje w bazie danych. Przejdz pod link:<br>";
           echo "<p><a href=\"produkt.php\">Powrót do wpiszwania kodu</a></p>";
           
       }else{
-          echo "Rozpocznij proces ETL";
-          $tab[]= extraction($_POST["kod"]);
-          print_r('Rodzaj:'.$tab[0]['Rodzaj']);
-          print_r('Marka:'.$tab[0]['marka']);
-          print_r('Model:'.$tab[0]['model']);
-          print_r('opis:'.$tab[0]['opis']);
+          echo "Produkt nie istnieje w bazie danych.<br>"
+          . "Rozpocznij proces ETL";
+          echo "<p><a href=\"extraction.php\">Extraction</a></p>";
+          echo "<p><a href=\"etl.php\">Cały proces ETL</a></p>";
+          
+          
       }
      
     }
 
   } else {
 
-    // Jeśli użytkownik dostał się na tę stronę w sposób inny niż przez formularz
 
-    // zostaje przekierowany do formularza zgłoszenia
 
     header("Location: index.php");
 
