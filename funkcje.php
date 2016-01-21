@@ -109,13 +109,16 @@ function transformation($kod, $page) {
     return $tab;
 }
 
-function transformationShow($kod, $page) {
+function transformationShow($kod, $page, $offset) {
 
     $tab[] = transformation($kod, $page);
-    echo "<pre>";
-//print_r($tab);
-    echo "</pre>";
-    for ($i = 0; $i < 10; $i++) {
+    if($offset == 0){
+        $end = 10;
+    }else{
+        $end = $offset;
+    }
+ 
+    for ($i = 0; $i < $end; $i++) {
         print_r('Autor:' . $tab[0]['nick'][$i] . '<br>');
         print_r('Ocena:' . $tab[0]['score'][$i] . '<br>');
         print_r($tab[0]['pros'][$i] . '<br>');

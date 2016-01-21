@@ -30,15 +30,17 @@ if (!isset($_SESSION['kod'])){
         print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']);
          echo '<p><a href="transformation.php"><button type="button" class="btn btn-lg btn-warning">Następna strona</button></a></p>';
          echo '<p><a href="load.php"><button type="button" class="btn btn-lg btn-primary">Krok 3: Load</button></a></p>';
-        
-        transformationShow($kod, 0);
+         $opinie = countReviews($kod);
+        $offset = substr( $opinie, -1, 1 );
+        transformationShow($kod, 0, $offset);
     } elseif ($_SESSION['pgsCount']<$_SESSION['pgs']) {
         
          print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']);
         echo '<p><a href="transformation.php"><button type="button" class="btn btn-lg btn-warning">Następna strona</button></a></p>';
          echo '<p><a href="load.php"><button type="button" class="btn btn-lg btn-primary">Krok 3: Load</button></a></p>';
-        
-        transformationShow($kod, $_SESSION['pgsCount']);
+         $opinie = countReviews($kod);
+        $offset = substr( $opinie, -1, 1 );
+        transformationShow($kod, $_SESSION['pgsCount'], $offset);
         $_SESSION['pgsCount']++;
     } else{
          print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']);
