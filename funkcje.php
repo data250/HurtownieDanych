@@ -8,11 +8,11 @@ function formularz() {
 
     <div>
 
-    KOD produkty: <input name="kod" value="" /><br />
+    Kod produktu: <input name="kod" value="" />
 
     
 
-    <input type="submit" value="Wyślij" name="submit"/>
+    <input type="submit" value="Wyślij" class="btn btn-lg btn-default" name="submit"/>
 
     </div>
 
@@ -28,7 +28,6 @@ function istnieje($kod) {
     $zapytanie = mysql_query("SELECT * FROM produkt WHERE kod=$kod");
     $wynik = mysql_fetch_array($zapytanie);
     if (empty($wynik)) {
-        echo "Nie znaleziono towaru";
         return 0;
     } else {
         echo "Znaleziono";
@@ -151,16 +150,13 @@ function countReviews($kod) {
 function loadProduct($kod) {
     $tab[] = extraction($kod);
     include_once('connect.php');
-    $rodzaj = "b/d";
-    $model = "b/d";
-    $marka = "b/d";
-    $opis = "b/d";
+    
     $rodzaj = $tab[0]['rodzaj'];
     $marka = $tab[0]['marka'];
     $model = $tab[0]['model'];
     $opis = $tab[0]['opis'];
     $query = "INSERT INTO produkt VALUES ('$kod', '$rodzaj' , '$marka', '$model', '$opis')";
-    print_r($query);
+    //print_r($query);
     mysql_query($query);
     return true;
 }
