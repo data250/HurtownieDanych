@@ -31,9 +31,10 @@ if (!isset($_SESSION['kod'])){
     } elseif ($_SESSION['pgsCount']<$_SESSION['pgs']) {
         echo ' <div class="alert alert-warning" role="alert">
         <strong>Praca w toku!</strong> Dodawanie opinii do bazy.<br>';
-      
+      $opinie = countReviews($kod);
+        $offset = substr( $opinie, -1, 1 );
          print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']."</div>");
-         loadOpinions($kod, $_SESSION['pgsCount'], 10);
+         loadOpinions($kod, $_SESSION['pgsCount'], $offset);
         header('refresh: 0.2;');
         $_SESSION['pgsCount']++;
     } else{
@@ -50,12 +51,18 @@ if (!isset($_SESSION['kod'])){
             unset($_SESSION['pgsCount']);
 
          $_SESSION = array();
-        echo "<p><a href=\"load.php\">Load</a></p>";
+        
     }
     
 }
-$max = $_SESSION['pgs'];
-$current = $_SESSION['pgsCount'];
+if (isset($_SESSION['pgs'])){
+    $max = $_SESSION['pgs'];
+    $current = $_SESSION['pgsCount'];
+}else{
+ $current=100;
+$max=100;
+$percentage = ($current/$max)*100;  
+}
 if($max!=0){
 $percentage = ($current/$max)*100;    
 }else{

@@ -47,12 +47,14 @@ if (isset($_POST["submit"])) {
             echo'<div class="alert alert-warning" role="alert">
         <strong>Uwaga!</strong> Towar o podanym kodzie istnieje w bazie.
       </div>';
+             echo '<p><a href="opinions.php?kod='.$kod.'"><button type="button" class="btn btn-lg btn-success">Pokaż opinie o tym produkcie</button></a></p>';
+           
         } else {
             echo'<div class="alert alert-info" role="alert">
         <strong>Oh!</strong> Produkt o podanym kodzie nie istnieje, rozpocznij proces ETL.
       </div>';
             echo '<p><a href="extraction.php"><button type="button" class="btn btn-lg btn-primary">Krok 1: Extraction</button></a></p>';
-            echo '<p><a href="etl.php"><button type="button" class="btn btn-lg btn-success">Automatyczne ETL</button></a></p>';
+            echo '<p><a href="load.php"><button type="button" class="btn btn-lg btn-success">Automatyczne ETL</button></a></p>';
         }
     }
 } else {

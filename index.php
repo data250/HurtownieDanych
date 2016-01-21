@@ -12,6 +12,16 @@ include_once 'nav.html';
         <p>
             <?php
             include_once('funkcje.php');
+            if (isset($_SESSION['kod'])) {
+                unset($_SESSION['kod']);
+            }
+            if (isset($_SESSION['pgs'])) {
+                unset($_SESSION['pgs']);
+            }
+            if (isset($_SESSION['pgsCount'])) {
+                unset($_SESSION['pgsCount']);
+            }
+
             formularz();
             ?>
         </p>

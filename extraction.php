@@ -29,7 +29,7 @@ if (!isset($_SESSION['kod'])) {
           </table>';
           
           echo '<p><a href="transformation.php"><button type="button" class="btn btn-lg btn-primary">Krok 2: Transformation</button></a></p>';
-            echo '<p><a href="etl.php"><button type="button" class="btn btn-lg btn-success">Automatyczne ETL</button></a></p>';
+            echo '<p><a href="load.php"><button type="button" class="btn btn-lg btn-success">Automatyczne ETL</button></a></p>';
             
             
          
