@@ -11,17 +11,18 @@ if (!isset($_SESSION['kod'])){
     print_r("Opis: ".$_SESSION['opis']."<br>");
     
           
-    
+    $kod = $_SESSION['kod'];
     if (!isset($_SESSION['pgs'])){
-        $kod = $_SESSION['kod'];
-        $_SESSION['pgs'] = countReviews($kod)/10;
+       
+        $strony = ceil(countReviews($kod)/10);
+        $_SESSION['pgs'] = $strony;
         $_SESSION['pgsCount'] = 1;
         print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']."<br>");
         echo "<p><a href=\"transformation.php\">Następna strona</a></p>";
         echo "<p><a href=\"load.php\">Load</a></p>";
         transformationShow($kod, 0);
     } elseif ($_SESSION['pgsCount']<$_SESSION['pgs']) {
-        $kod = $_SESSION['kod'];
+        
          print_r("Strona ".$_SESSION['pgsCount']." z ".$_SESSION['pgs']."<br>");
         echo "<p><a href=\"transformation.php\">Następna strona</a></p>";
         echo "<p><a href=\"load.php\">Load</a></p>";
