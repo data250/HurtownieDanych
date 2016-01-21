@@ -8,6 +8,7 @@ echo '<div class="jumbotron">';
 if (!isset($_SESSION['kod'])){
     
 }  else {
+     $kod = $_SESSION['kod'];
     echo'<table class="table table-striped"><tbody><tr><td>Kategoria: </td><td>';  
     print_r($_SESSION['rodzaj']);
     echo'</td></tr><tr><td>Marka: </td><td>';
@@ -16,12 +17,14 @@ if (!isset($_SESSION['kod'])){
     print_r($_SESSION['model']);
     echo'</td></tr><tr><td>Opis: </td><td>';
     print_r($_SESSION['opis']);   
+     echo'</td></tr><tr><td>Opinie do załadowania: </td><td>';
+    print_r(countReviews($kod));   
     echo'</td></tr></tbody>
     </table>';
  
     
           
-    $kod = $_SESSION['kod'];
+   
     if (!isset($_SESSION['pgs'])){
        
         $strony = ceil(countReviews($kod)/10);

@@ -193,3 +193,23 @@ function loadOpinions($kod, $page, $offset) {
 
     }
 }
+
+function czyscZmienne(){
+    if (isset($_SESSION['kod'])) {
+                unset($_SESSION['kod']);
+            }
+            if (isset($_SESSION['pgs'])) {
+                unset($_SESSION['pgs']);
+            }
+            if (isset($_SESSION['pgsCount'])) {
+                unset($_SESSION['pgsCount']);
+            }
+}
+function czyscBaze(){
+   include_once('connect.php');
+   $wynik = mysql_query('TRUNCATE `opinie`') 
+or die('Błąd zapytania'); 
+      $wynik = mysql_query('TRUNCATE `produkt`') 
+or die('Błąd zapytania');  
+}
+
