@@ -10,6 +10,8 @@ echo '<div class="jumbotron">';
    $wynik = mysql_query('SELECT * FROM `opinie` WHERE `id_produkt` = '.$kod.' ORDER BY `id` ASC') 
 or die('Błąd zapytania'); 
 echo '<h3>Opinie o produkcie:</h3>';
+ echo '<a href="csv.php?kod='.$kod.'"><button type="button" class="btn btn-lg btn-warning">DO CSV</button></a>';
+  echo '<hr>'  ;       
 if(mysql_num_rows($wynik) > 0) { 
 
     while($r = mysql_fetch_assoc($wynik)) { 
@@ -26,13 +28,7 @@ if(mysql_num_rows($wynik) > 0) {
         echo '<hr>'; 
     } 
     echo '<hr>'; 
+    
 }        
       
-         
-        
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

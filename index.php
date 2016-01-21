@@ -12,6 +12,12 @@ include_once 'nav.html';
                 include_once('funkcje.php');
                 czyscZmienne();
                 formularz();
+                
+                echo '<p><br><a href="ProjektETL-DokumentacjaTechniczna.pdf"><button type="button" class="btn btn-lg btn-danger">Dokumentacja Techniczna (PDF)</button></a><br><br>';
+                   
+                echo '<a href="Projekt_ETL-DokumentacjaUzytkownika.pdf"><button type="button" class="btn btn-lg btn-danger">Dokumentacja Użytkownika (PDF)</button></a></p>';
+                
+                
             ?>
         </p>
 

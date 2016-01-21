@@ -213,3 +213,40 @@ or die('Błąd zapytania');
 or die('Błąd zapytania');  
 }
 
+function dane_do_CSV($kod){
+include ("connect.php"); 
+	$sPlik='csv/'.$kod;
+	$zabezpieczenie=0;
+	$hd=fopen($sPlik.'.csv','w');
+	$zapytanie = mysql_query('SELECT * FROM `opinie` WHERE `id_produkt` = '.$kod.' ORDER BY `id` ASC');
+	if ($zapytanie) {
+            
+		while ($wynik = mysql_fetch_array($zapytanie)) {
+			
+                    fwrite($hd, $wynik["id"].';'.$wynik["autor"].$wynik["data"].
+                            ';'.$wynik["polecenie"].$wynik["gwiazdki"].';'
+                            .$wynik["zalety"].$wynik["wady"].';'.$wynik["podsumowanie"]
+                            .$wynik["przydatna"].';'.$wynik["ocenilo"]."\n" );
+					
+               
+                }
+                fclose($hd);
+                                        
+					
+				
+			
+			
+		
+		
+	} else {
+		echo "Nie można wykonać zapytania!";
+	}
+	
+	
+	
+	
+		mysql_close();
+	$naglowek=0;
+	return 1;
+}
+
